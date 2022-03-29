@@ -29,7 +29,7 @@ rs.initiate(
 
 rs.status()
 
-docker exec -it mongors1 bash -c "echo 'rs.status()' | mongo"
+# docker exec -it mongors1 bash -c "echo 'rs.status()' | mongo"
 
 ############### SHARD 2 Replica Set ###############
 rs.initiate(
@@ -45,13 +45,13 @@ rs.initiate(
 
 rs.status()
 
-docker exec -it mongors2 bash -c "echo 'rs.status()' | mongo"
+# docker exec -it mongors2 bash -c "echo 'rs.status()' | mongo"
 ##################################################
 ############### Mongos Routers ###################
-docker exec -it mongos1 bash -c "echo 'sh.addShard(\"mongors1/mongors1n1\")' | mongo "
-docker exec -it mongos1 bash -c "echo 'sh.addShard(\"mongors2/mongors2n1\")' | mongo "
+# docker exec -it mongos1 bash -c "echo 'sh.addShard(\"mongors1/mongors1n1\")' | mongo "
+# docker exec -it mongos1 bash -c "echo 'sh.addShard(\"mongors2/mongors2n1\")' | mongo "
 # Need To Confirm If eg. mongors2n1 were down, The replica Set can replace this node instead !!!!!!
-docker exec -it mongos1 bash -c "echo 'sh.status()' | mongo "
+# docker exec -it mongos1 bash -c "echo 'sh.status()' | mongo "
 ###################################################
 Note! MongoDB mongos instances route queries and write operations to shards in a sharded cluster. mongos provide the only interface to a sharded cluster from the perspective of applications. Applications never connect or communicate directly with the shards.
 
@@ -60,8 +60,8 @@ Note! MongoDB mongos instances route queries and write operations to shards in a
 #
 #
 #Create Database and Shard it's collisions 
-docker exec -it mongors1n1 bash -c "echo 'use someDb' | mongo"
-docker exec -it mongos1 bash -c "echo 'sh.enableSharding(\"someDb\")' | mongo "
-docker exec -it mongors1n1 bash -c "echo 'db.createCollection(\"someDb.someCollection\")' | mongo "
+# docker exec -it mongors1n1 bash -c "echo 'use someDb' | mongo"
+# docker exec -it mongos1 bash -c "echo 'sh.enableSharding(\"someDb\")' | mongo "
+# docker exec -it mongors1n1 bash -c "echo 'db.createCollection(\"someDb.someCollection\")' | mongo "
 
-docker exec -it mongos1 bash -c "echo 'sh.shardCollection(\"someDb.someCollection\", {\"someField\" : \"hashed\"})' | mongo "
+# docker exec -it mongos1 bash -c "echo 'sh.shardCollection(\"someDb.someCollection\", {\"someField\" : \"hashed\"})' | mongo "
